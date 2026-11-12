@@ -93,6 +93,8 @@ export const loginUser = async (req,res) => {
         res.cookie("token", token, {
             httpOnly: true,
             maxAge: 1 * 24 * 60 * 60 * 1000,
+            sameSite: 'none', // Allows cross-domain cookies
+            secure: true
         });
 
         return res.status(201).json({
