@@ -11,8 +11,9 @@ const app = express()
 
 app.use(express.json());
 app.use(cors({
-    origin: ["http://localhost:5173","https://resume-builder-6w9n.vercel.app"] ,
-    credentials: true 
+    origin: 'https://resume-builder-co46.vercel.app', // No trailing slash
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
 }))
 app.use(cookieParser())
 

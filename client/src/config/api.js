@@ -1,9 +1,11 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
-    withCredentials: true
-})
+  // This forces it to use Render, not Vercel
+  baseURL: import.meta.env.VITE_BASE_URL,
+  
+  // This is mandatory to send and receive the HTTP-only cookie
+  withCredentials: true 
+});
 
-
-export default api
+export default api;
