@@ -11,8 +11,8 @@ const app = express()
 
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173", // Must be your exact frontend URL. Do NOT put a trailing slash.
-    credentials: true // This allows the cookie to be sent and received
+    origin: ["http://localhost:5173","https://resume-builder-6w9n.vercel.app"] ,
+    credentials: true 
 }))
 app.use(cookieParser())
 
