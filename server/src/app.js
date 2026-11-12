@@ -11,7 +11,10 @@ const app = express()
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://resume-builder-co46.vercel.app', // No trailing slash
+    origin: [
+        'https://resume-builder-4ikr.vercel.app', 
+        'https://resume-builder-co46.vercel.app' // Keep this if you still use it
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }))
