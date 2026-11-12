@@ -1,5 +1,5 @@
 import Resume from '../models/Resume.js'
-import cloudinary from '../config/Cloudinary.js'
+import cloudinary from '../config/cloudinary.js'
 import fs from 'fs'
 
 
