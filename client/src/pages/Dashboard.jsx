@@ -9,8 +9,15 @@ import {
 import React, { useEffect, useState } from "react";
 import { dummyResumeData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {toast} from 'react-hot-toast'
+import api from "../config/api";
+import pdfToText from "react-pdftotext";
 
 const Dashboard = () => {
+
+  const {user} = useSelector(state => state.auth)
+
   const colors = ["#9333ea", "#d97706", "#dc2626", "#0248c7", "#16a34a"];
   const [allResume, setAllResume] = useState([]);
   const [showCreateResume, setShowCreateResume] = useState(false);
@@ -19,21 +26,42 @@ const Dashboard = () => {
   const [resume, setResume] = useState(null);
   const [editResumeId, setEditResumeId] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadAllResumes = async () => {
-    setAllResume(dummyResumeData);
+    try{
+      const {data} = await api.get('/api/users/resumes',{title})
+      setAllResume(data.resumes)
+    }catch(err) {
+      toast(err?.response?.data?.message || err.message)
+    }
   };
 
   const createResume = async (e) => {
-    e.preventDefault();
-    setShowCreateResume(false);
-    navigate(`/app/builder/res123`);
+    e.preventDefault()
+    try{
+      const {data} = await api.post('/api/resumes/create',{title})
+      setAllResume([...allResume,data.resume])
+      navigate(`/app/builder/${data.resume._id}`)
+    }catch(err) {
+      toast(err?.response?.data?.message || err.message)
+    }
   };
 
   const uploadResume = async (e) => {
     e.preventDefault();
-    setShowUploadResume(false);
-    navigate(`/app/buider/res123`);
+    setIsLoading(true)
+    try {
+      const resumeText = await pdfToText(resume);
+      const {data} = await api.post('/api/ai/upload-resume',{ title, resumeText })
+      setTitle('')
+      setResume(null)
+      setShowUploadResume(false)
+      navigate(`/app/builder/${data.resumeId}`)
+    }catch(error) {
+      toast.error(error?.response?.data?.message || error.message)
+    }
+    setIsLoading(false)  
   };
 
   const editTitle = async (e) => {
