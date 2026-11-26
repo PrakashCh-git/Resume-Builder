@@ -114,8 +114,8 @@ This integration helps users generate relevant and professional resume content w
 
 **Prakash Chandra Mahato**
 
-- GitHub: [Your GitHub Profile]()
-- LinkedIn: [Your LinkedIn Profile](YOUR_LINKEDIN_PROFILE_URL)
+- GitHub: https://github.com/PrakashCh-git
+- LinkedIn: www.linkedin.com/in/prakash-chandra-2b5a66294
 
 ---
 
